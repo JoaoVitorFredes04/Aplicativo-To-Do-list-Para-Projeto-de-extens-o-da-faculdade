@@ -1,40 +1,45 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, TouchableOpacity, View, ScrollView, Modal } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View, ScrollView, Modal, ActivityIndicator  } from 'react-native';
 import Dashboard from './components/Dashboard';
 import Tarefas from './components/Tarefas';
 import Financas from './components/Financas';
-import Menu from './components/menu';
 
 
 export default function App() {
-  const [telaAtual, setTelaAtual] = useState('Dashboard');
-  const [telaMenu, settelaMenu] = useState(false)
+    const [telaAtual, setTelaAtual] = useState('Dashboard');
+  const [carregando, setCarregando] = useState(true);
 
-  function menuActivate() {
-    settelaMenu(true)
+  useEffect(() => {
+    setTimeout(() => {
+      setCarregando(false);
+    }, 2000); // simulação de carregamento
+  }, []);
+
+  // 🔥 Enquanto estiver carregando, mostra tela de loading
+  if (carregando) {
+    return (
+      <View style={styles.loadingContainer}>
+        <ActivityIndicator size="large" />
+        <Text>Carregando...</Text>
+      </View>
+    );
   }
 
-  function menuDesactivate() {
-    settelaMenu(false)
-  }
-
-
+  // Renderiza tela certa
   const renderTela = () => {
     if (telaAtual === 'Dashboard') return <Dashboard />;
     if (telaAtual === 'Tarefas') return <Tarefas />;
     if (telaAtual === 'Financas') return <Financas />;
   };
 
-  const ativo = (key: string) => telaAtual === key;
+  const ativo = (key)=> telaAtual === key;
+
 
   return (
     
       <View style={styles.container}>
         <View style={styles.nav}>
           <Text style={styles.Title}>Organiza.AE</Text>
-          <TouchableOpacity onPress={menuActivate}>
-            <Text>Menu</Text>
-          </TouchableOpacity>
         </View>
 
         <View style={styles.Line} />
@@ -61,16 +66,6 @@ export default function App() {
         
           <View style={styles.conteudo}>{renderTela()}</View>
        
-
-        <Modal visible={telaMenu} animationType='slide' style={styles.menu}>
-          <View style={styles.menu}>
-
-          <TouchableOpacity onPress={menuDesactivate} style={{ alignItems: 'flex-end', margin: 15 }}>
-            <Text style={{ textAlign: 'left' }}>voltar</Text>
-          </TouchableOpacity>
-          <Menu />
-        </View>
-        </Modal>
       </View>
   );
 }
@@ -130,6 +125,13 @@ const styles = StyleSheet.create({
   logoutBtn: { alignSelf: 'flex-end', marginRight: 15, marginTop: 10 },
 
   menu: {
+    flex:1,
     paddingTop:40,
+  },
+
+  loadingContainer: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center'
   }
 });

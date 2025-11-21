@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "Organiza.AE",
-    "slug": "Organiza.AE",
+    "name": "Organiza_AE",
+    "slug": "Organiza_AE",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -12,22 +12,34 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-   "ios": {
+    "ios": {
       "bundleIdentifier": "com.organizaae.app",
-  "supportsTablet": true,
-"googleServicesFile": "./assets/GoogleService-Info.plist"
-  },
-
+      "supportsTablet": true,
+      "googleServicesFile": "./assets/GoogleService-Info.plist",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
+    },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
       "edgeToEdgeEnabled": true,
-      "predictiveBackGestureEnabled": false
+      "predictiveBackGestureEnabled": false,
+      "package": "com.organizaae.app"
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "69b86bd3-108f-43d1-ac11-d6d07325acf9"
+      }
+    },
+    "owner": "joao_vitor_fredes",
+    "plugins": [
+      "expo-font"
+    ]
   }
 }
